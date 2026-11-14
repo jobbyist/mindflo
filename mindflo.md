@@ -55,3 +55,12 @@ This file is the canonical, append-only development log for MindFlo. Every imple
 - **Changes:** Converted the repository from a standalone HTML file into a TanStack Start + React + TypeScript application. Preserved the prototype's full page markup and CSS rather than re-authoring the interface, and reattached mobile navigation, FAQ toggles, current year, and enquiry form behaviour through React lifecycle-managed event listeners. Added SEO metadata, Google Fonts, Nitro/Vercel configuration, and cross-tool change-control guidance.
 - **Reason:** Establish a deployable application foundation while protecting the approved visual design and enabling subsequent backend/frontend architecture work.
 - **Validation:** Source migration and configuration authored; root route outlet wired for route rendering. Install/build/typecheck/browser visual comparison not executed in this environment. Do not treat as production-verified until CI passes.
+
+
+### 2026-11-15 — Migration PR merged; validation handoff
+
+- **Contributor:** ChatGPT
+- **Repository state:** PR #1 merged into `main` (squash merge); merge commit `85ccc3a6937292d59b440a50f4f26da2ac51b523`.
+- **Changes:** Promoted the TanStack Start migration scaffold to the default branch. Confirmed the Vite plugin order and explicit Vercel framework setting against the current TanStack Start and Vercel deployment documentation.
+- **Validation:** No GitHub Actions workflow runs or commit status checks were reported for the merge commit. A local clone could not be completed in the execution environment because outbound DNS/network access to GitHub was unavailable; therefore dependency installation, lockfile generation, TypeScript checks, production build, and browser visual regression remain unexecuted. Vercel framework detection has not yet been confirmed by the repository owner.
+- **Next gate:** Owner to import `jobbyist/mindflo` into Vercel and confirm that the Framework Preset is detected as **TanStack Start**. After that confirmation, run or inspect the Vercel build; address any build failure in a focused follow-up commit and append the results here.
