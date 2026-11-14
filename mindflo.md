@@ -85,3 +85,14 @@ This file is the canonical, append-only development log for MindFlo. Every imple
 - **Reason:** Remove the invalid package version that prevented npm from resolving dependencies before compilation.
 - **Validation:** Confirmed the published package version and release metadata from npm/TanStack package listings. No install, lockfile generation, typecheck, production build, or browser regression has yet been run locally. Vercel Preview must verify the next install and build.
 - **Next gate:** Wait for the updated Vercel Preview. Do not merge until dependency installation and the production build both pass; capture any subsequent failure verbatim and continue with a focused fix.
+
+### 2026-11-15 — Correct Nitro package name/version line
+
+- **Contributor:** ChatGPT
+- **Branch:** `fix/tanstack-vite8-peer-deps`
+- **Files:** `package.json`, `mindflo.md`.
+- **Issue:** Vercel dependency installation next failed with `ETARGET` for `nitro@^2.11.0`. Nitro v2 was published as `nitropack`; the unscoped `nitro` package is the renamed v3 line, so a v2 semver range cannot resolve against it.
+- **Changes:** Pinned the published `nitro@3.0.261103-rc` package to match the existing `nitro/vite` import in `vite.config.ts`. Raised the declared Node engine minimum to `>=22.22.0`, matching the Nitro v3 migration requirement.
+- **Reason:** Align the installed Nitro package with the import path and Vite integration already used by the project, rather than switching back to the legacy package under a mismatched name.
+- **Validation:** Confirmed npm's published Nitro v3 package and the Nitro migration documentation, which distinguishes Nitro v3 (`nitro`) from Nitro v2 (`nitropack`). No local install, lockfile generation, typecheck, production build, or browser regression has been run. Vercel Preview remains the next validation gate.
+- **Next gate:** Verify that npm install completes and Vercel proceeds into the build. Do not merge until the full production build succeeds.
