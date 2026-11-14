@@ -64,3 +64,15 @@ This file is the canonical, append-only development log for MindFlo. Every imple
 - **Changes:** Promoted the TanStack Start migration scaffold to the default branch. Confirmed the Vite plugin order and explicit Vercel framework setting against the current TanStack Start and Vercel deployment documentation.
 - **Validation:** No GitHub Actions workflow runs or commit status checks were reported for the merge commit. A local clone could not be completed in the execution environment because outbound DNS/network access to GitHub was unavailable; therefore dependency installation, lockfile generation, TypeScript checks, production build, and browser visual regression remain unexecuted. Vercel framework detection has not yet been confirmed by the repository owner.
 - **Next gate:** Owner to import `jobbyist/mindflo` into Vercel and confirm that the Framework Preset is detected as **TanStack Start**. After that confirmation, run or inspect the Vercel build; address any build failure in a focused follow-up commit and append the results here.
+
+
+### 2026-11-15 — Resolve Vercel dependency installation failure
+
+- **Contributor:** ChatGPT
+- **Branch:** `fix/tanstack-vite8-peer-deps`
+- **Files:** `package.json`, `mindflo.md`.
+- **Issue:** Vercel correctly detected TanStack Start, but npm dependency resolution failed because the floating `^1.120.5` range installed `@tanstack/react-start@1.169.5`, whose Vite integration requires Vite 8+, while the project constrained Vite to 6.x. The existing React Vite plugin was also from the older Vite compatibility generation.
+- **Changes:** Aligned TanStack packages to `@tanstack/react-start@1.169.6` and `@tanstack/react-router@1.170.43`; upgraded Vite to `8.3.8` and `@vitejs/plugin-react` to `6.3.0`; declared Node.js `>=22.12.0` for the Vite 8 toolchain. Kept the landing-page source, styles, and Vercel framework declaration unchanged.
+- **Reason:** Resolve the exact peer-dependency conflict in the supplied Vercel log without suppressing npm's dependency checks.
+- **Validation:** Versions and peer-compatibility direction checked against current TanStack Start migration guidance and Vite React plugin release notes. Dependency installation, lockfile generation, TypeScript check, production build, and browser visual regression have not yet been run in this environment. A fresh Vercel deployment is required to verify the fix end-to-end.
+- **Next gate:** Review and merge the fix after Vercel reports a successful install/build. If a new error appears, append the exact error and corrective change here.
